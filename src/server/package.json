@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "ts-node index.ts",
+    "start:dev": "nodemon index.ts",
     "build": "tsc --project ./",
-    "cypress:open": "cypress open"
+    "lint:ts": "./node_modules/.bin/eslint ./**/*.ts",
+    "lint:ts:fix": "./node_modules/.bin/eslint ./**/*.ts --fix",
+    "lint": "npm run lint:ts",
+    "test:e2e:run": "cypress run",
+    "test:e2e:open": "cypress open"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +20,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongo-seeding": "^3.6.0",
     "mongoose": "^5.12.5"
   },
   "devDependencies": {

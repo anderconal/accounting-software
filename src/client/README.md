@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Bank accounting software client
+Bank accounting software is a client application coded using **React.js** with **TypeScript**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Dependencies
 
-## Available Scripts
+This list of dependencies needs to be installed manually in your development environment:
 
-In the project directory, you can run:
+* [nodejs >= 10](http://nodejs.org/)
 
-### `npm start`
+## Install the dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+npm install
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Run the application
+- Start the client
+```bash
+cd src/client
+npm run start
+```
+- Open http://localhost:3000
 
-### `npm test`
+## Npm scripts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Scripts                       | Description
+------------------------------|---------------------------------------------------------------------------------------
+npm run start                 | Start a development server on `http://localhost:3000`
+npm run build                 | Build app in `build/` folder
+npm run lint                  | Lint code (TypeScript)
+npm run test                  | Run the tests related to files changed since the last commit
 
-### `npm run build`
+## File structure
+    .
+    ├── public                  # Folder created by create-react-app and used by React which contains favicon.ico, index.html, manifest.json and robots.txt
+    ├── src                     # Source code
+    │   ├── screens             # Screens of the application
+    │   └── domain              # Domain related files and folders
+    │   └── infrastructure      # Infrastructure related files and folders
+    │   └── ...                 
+    ├── .eslintrc.js            # ESlint configuration file
+    ├── .gitignore              # File that specifies intentionally untracked files that Git should ignore
+    ├── package-lock.json       # It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.
+    ├── package.json            # Lists the packages your project depends on, specifies versions of a package that your project can use using semantic versioning rules, makes your build reproducible, and therefore easier to share with other developers
+    ├── README.md               # You are reading it right now!
+    ├── tsconfig.json           # TypeScript configuration
+    └── ...
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Testing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Use of [React Testing Library](https://testing-library.com/) and [Jest](https://jestjs.io/) to write unit and integration tests
+- Use of [ESLint](https://eslint.org/) as static code analysis tool for TypeScript

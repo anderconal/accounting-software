@@ -1,5 +1,5 @@
 import { Document } from 'mongoose'
-import {ITransaction} from "./ITransaction";
+import { ITransaction } from './ITransaction'
 
 export interface IAccount extends Document {
     id: string;

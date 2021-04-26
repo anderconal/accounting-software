@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
@@ -6,7 +7,8 @@ module.exports = {
   },
   extends: [
     'standard',
-    'plugin:cypress/recommended'
+    'plugin:cypress/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

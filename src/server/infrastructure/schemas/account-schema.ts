@@ -1,15 +1,15 @@
 import mongoose from 'mongoose'
-import {TransactionSchema} from "./transaction-schema";
+import { TransactionSchema } from './transaction-schema'
 
 export const AccountSchema = new mongoose.Schema({
-    balance: {
-        type: Number,
-        required: true
-    },
-    transactions: [
-        TransactionSchema
-    ]
+  balance: {
+    type: Number,
+    required: false
+  },
+  transactions: [
+    TransactionSchema
+  ]
 }, {
-    timestamps: true,
-    toJSON: { virtuals: true }
+  timestamps: true,
+  toJSON: { virtuals: true }
 })

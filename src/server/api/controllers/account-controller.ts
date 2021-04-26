@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express'
-
 import { AccountService } from '../../infrastructure/services/account-service'
-import { AccountModel } from '../../infrastructure/models/accountModel'
 
 export class AccountController {
     public router = Router();
@@ -10,9 +8,7 @@ export class AccountController {
       this.setRoutes()
     }
 
-    public setRoutes () {
-      this.router.route('/').get(this.hello)
-
+    public setRoutes (): void {
       this.router.route('/all').get(this.findAll)
 
       this.router.route('/').post(this.add)
@@ -21,11 +17,6 @@ export class AccountController {
       this.router.route('/deposit').post(this.deposit)
       this.router.route('/withdraw').post(this.withdraw)
     }
-
-    private hello = (_: Request, res: Response) => {
-      const welcomeMessage = this.accountService.welcomeMessage()
-      res.send(welcomeMessage)
-    };
 
     private findAll = async (_: Request, res: Response, next: NextFunction) => {
       try {

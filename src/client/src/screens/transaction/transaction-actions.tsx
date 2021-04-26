@@ -11,23 +11,25 @@ function TransactionActions ({ onTransactionUpdate, accountId }: ITransactionAct
   const [amount, setAmount] = useState<number>(0)
 
   function deposit () {
+    setAmount(0)
     accountService.deposit(accountId, amount).then(result => {
       onTransactionUpdate(result.transactions)
     })
   }
 
   function withdraw () {
+    setAmount(0)
     accountService.withdraw(accountId, amount).then(result => {
       onTransactionUpdate(result.transactions)
     })
   }
 
   return (
-        <div className="input-group">
-            <input type="number" className="form-control" placeholder="€ to deposit / withdraw"
-                   aria-label="Euros to deposit or withdraw" value={amount} onChange={e => { setAmount(Number(e.currentTarget.value)) }}/>
-            <button className="btn btn-outline-secondary" type="button" onClick={deposit}>Deposit</button>
-            <button className="btn btn-outline-secondary" type="button" onClick={withdraw}>Withdraw</button>
+        <div className="input-group p-10">
+            <input data-e2e={'amount-input'} type="number" className="form-control" placeholder="Euros to deposit / withdraw"
+                   aria-label="Euros to deposit or withdraw" value={amount} onChange={e => { setAmount(Number(e.target.value)) }}/>
+            <button data-e2e={'deposit-button'} aria-label="Deposit money" className="btn btn-outline-light" type="button" onClick={deposit}>Deposit</button>
+            <button data-e2e={'withdraw-button'} aria-label="Withdraw money" className="btn btn-outline-light" type="button" onClick={withdraw}>Withdraw</button>
         </div>
   )
 }

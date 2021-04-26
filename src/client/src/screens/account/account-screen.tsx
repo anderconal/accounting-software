@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Account } from '../../domain/models/account'
-import TransactionScreen from './transaction'
+import TransactionScreen from '../transaction/transaction-screen'
 import TransactionActions from '../transaction/transaction-actions'
-import { accountService } from '../../domain/services/account-service'
 import { Transaction } from '../../domain/models/transaction'
 
 interface IAccountProps {
@@ -19,11 +18,20 @@ function AccountScreen ({ account }: IAccountProps) {
   const handleTransactionUpdate = (transactions: Transaction[]) => {
     setTransactions(transactions)
   }
+
   return (
         <>
-            <h1>Account: {account.id}</h1>
-            <TransactionActions accountId={account.id} onTransactionUpdate={handleTransactionUpdate}/>
-            <table className="table table-dark table-striped table-hover">
+            <div className={'container-fluid'}>
+                <div className="row">
+                    <div className="col-sm">
+                        <h2 data-e2e={'account-id'}>Account: {account.id}</h2>
+                    </div>
+                    <div className="col-sm">
+                        <TransactionActions accountId={account.id} onTransactionUpdate={handleTransactionUpdate}/>
+                    </div>
+                </div>
+            </div>
+            <table aria-label="List of transactions of the account" className="table table-dark table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>

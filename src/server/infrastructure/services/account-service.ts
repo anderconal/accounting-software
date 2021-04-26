@@ -1,26 +1,26 @@
 import { HttpError } from '../../errors/http-error'
 import { IAccount } from '../interfaces/IAccount'
-import { AccountModel } from '../models/accountModel'
-import { Account } from '../../domain/models/account'
-import { Transaction } from '../models/transaction'
-import { TransactionType } from '../../domain/enums/transaction-type'
+import { Account } from '../models/account'
+import { AccountRepository } from '../repositories/account-repository'
 
 export class AccountService {
-  public welcomeMessage (): string {
-    return 'Welcome'
+  private accountRepository: AccountRepository
+
+  constructor (accountRepository: AccountRepository) {
+    this.accountRepository = accountRepository
   }
 
   public find (): Promise<IAccount[]> {
-    return AccountModel.find({}).exec()
+    return Account.find({}).exec()
   }
 
   public add (account: IAccount): Promise<IAccount> {
-    const newAccount = new AccountModel(account)
+    const newAccount = new Account(account)
     return newAccount.save()
   }
 
-  public async delete (id: string) {
-    const deletedAccount: Promise<IAccount> = await AccountModel.findByIdAndDelete(
+  public async delete (id: string): Promise<IAccount> {
+    const deletedAccount: Promise<IAccount> = await Account.findByIdAndDelete(
       id
     ).exec()
 
@@ -31,8 +31,8 @@ export class AccountService {
     return deletedAccount
   }
 
-  public async update (id: string, account: IAccount | Partial<IAccount>) {
-    const updatedAccount: Promise<IAccount> = await AccountModel.findByIdAndUpdate(
+  public async update (id: string, account: IAccount | Partial<IAccount>): Promise<IAccount> {
+    const updatedAccount: Promise<IAccount> = await Account.findByIdAndUpdate(
       id,
       account
     ).exec()
@@ -44,45 +44,11 @@ export class AccountService {
     return updatedAccount
   }
 
-  public async deposit (id: string, amount: number) {
-    const test: IAccount = await AccountModel.findById(id).exec()
-    const accountModel = new Account(test.balance)
-    accountModel.deposit(amount)
-    const newTransaction = new Transaction({
-      amount: amount,
-      type: TransactionType.Deposit,
-      balance: accountModel.balance
-    })
-    await newTransaction.save()
-    const result: Promise<IAccount> = await AccountModel.findOneAndUpdate({ _id: id },
-      {
-        $set: { balance: accountModel.balance },
-        $push: { transactions: newTransaction }
-      },
-      { new: true })
-      .exec()
-
-    return result
+  public async deposit (id: string, amount: number): Promise<IAccount> {
+    return await this.accountRepository.deposit(id, amount)
   }
 
-  public async withdraw (id: string, amount: number) {
-    const test: IAccount = await AccountModel.findById(id).exec()
-    const accountModel = new Account(test.balance)
-    accountModel.withdraw(amount)
-    const newTransaction = new Transaction({
-      amount: amount,
-      type: TransactionType.Withdrawal,
-      balance: accountModel.balance
-    })
-    await newTransaction.save()
-    const result: Promise<IAccount> = await AccountModel.findOneAndUpdate({ _id: id },
-      {
-        $set: { balance: accountModel.balance },
-        $push: { transactions: newTransaction }
-      },
-      { new: true })
-      .exec()
-
-    return result
+  public async withdraw (id: string, amount: number): Promise<IAccount> {
+    return await this.accountRepository.withdraw(id, amount)
   }
 }
